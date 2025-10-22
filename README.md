@@ -2,21 +2,9 @@
 
 ## Project Information
 
-**Course**: Workshop in Data Management  
-**Student**: Yotam Ben Dov  
-**Language**: Python 3.8+  
-**Database**: MySQL 8.0  
-**Dataset**: Kaggle Books Dataset (books.csv, users.csv, ratings.csv)
-
-## Overview
-
-This application is a comprehensive database management system for book clubs. It demonstrates database design principles, complex SQL queries, and full CRUD operations through a desktop GUI interface. The system manages books, users, ratings, and book clubs with features including reading queues, discussion forums, and analytical queries.
-
-## System Requirements
-
-- Python 3.8 or higher
-- MySQL 8.0 or higher
-- Required Python package: `mysql-connector-python`
+**Submited by**: Yotam Ben Dov
+**Submited to**: Osnat Drien
+**Dataset**: https://www.kaggle.com/datasets/saurabhbagchi/books-dataset/data
 
 ## Installation Instructions
 
