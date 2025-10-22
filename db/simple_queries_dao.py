@@ -8,7 +8,7 @@ from db.connection import db
 
 def get_books_trending_in_clubs(limit=20):
     """
-    Simple Query #5: Books trending in clubs
+    Books trending in clubs
     Books most frequently added to reading queues
     """
     query = """
@@ -36,7 +36,7 @@ def get_books_trending_in_clubs(limit=20):
 
 def get_most_discussed_books(limit=20):
     """
-    Simple Query #6: Most discussed books
+    Most discussed books
     Books with most chapter discussions across all clubs
     """
     query = """
@@ -60,7 +60,7 @@ def get_most_discussed_books(limit=20):
 
 def get_publisher_comparison():
     """
-    Simple Query #7: Publisher comparison
+    Publisher comparison
     Publishers ranked by book count, average ratings, and club selections
     """
     query = """
@@ -85,7 +85,7 @@ def get_publisher_comparison():
 
 def get_most_prolific_authors(limit=20):
     """
-    Simple Query #9: Most prolific authors
+    Most prolific authors
     Authors ranked by number of books and average ratings
     """
     query = """
@@ -110,7 +110,7 @@ def get_most_prolific_authors(limit=20):
 
 def get_location_based_stats():
     """
-    Simple Query #10: Location-based statistics
+    Location-based statistics
     User distribution and popular books by location/region
     """
     query = """

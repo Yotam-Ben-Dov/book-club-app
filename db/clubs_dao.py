@@ -186,7 +186,7 @@ def update_member_role(club_id, user_id, new_role):
 
 def get_club_reading_queue(club_id):
     """
-    Get club's reading queue (Simple Query #2)
+    Get club's reading queue
     Books ordered by queue position
     """
     query = """
@@ -247,7 +247,7 @@ def reorder_queue(club_id, queue_updates):
 
 def get_club_reading_history(club_id):
     """
-    Get club's reading history (Simple Query #3)
+    Get club's reading history
     Shows completed books and current book
     """
     query = """
@@ -337,7 +337,7 @@ def complete_current_book(club_id, end_date=None):
 
 def get_club_recent_discussions(club_id, limit=20):
     """
-    Get recent discussions from club (Simple Query #4)
+    Get recent discussions from club
     Combines general and chapter discussions
     """
     query = """

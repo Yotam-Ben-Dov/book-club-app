@@ -100,7 +100,7 @@ def delete_user(user_id):
 
 def get_user_reading_statistics(user_id):
     """
-    Get user reading statistics (Simple Query #1)
+    Get user reading statistics
     
     Returns:
         - Total books rated

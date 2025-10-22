@@ -211,7 +211,7 @@ def remove_book_author(isbn, author_id):
 
 
 def get_books_by_publisher(publisher_id, limit=100):
-    """Get all books by a publisher (Simple Query #8)"""
+    """Get all books by a publisher"""
     query = """
         SELECT 
             b.ISBN,
