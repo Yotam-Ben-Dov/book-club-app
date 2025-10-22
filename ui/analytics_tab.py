@@ -35,8 +35,8 @@ class AnalyticsTab:
     
     def setup_complex_queries(self, parent):
         """Setup complex queries section"""
-        # Query 1: Top Publishers
-        query1_frame = ttk.LabelFrame(parent, text="Top Publishers by Rating", padding="10")
+        # Query 1: Top Publishers (unchanged)
+        query1_frame = ttk.LabelFrame(parent, text="Complex Query 1: Top Publishers by Rating", padding="10")
         query1_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
         ttk.Label(query1_frame, text="Analyzes publishers by average rating and book count. "
@@ -56,25 +56,36 @@ class AnalyticsTab:
         ttk.Button(query1_frame, text="Run Publisher Analysis", 
                 command=self.run_top_publishers).pack(pady=5)
         
-        # Query 2: Top Rated Books by Age Group
-        query2_frame = ttk.LabelFrame(parent, text="Top Rated Books by Age Group", 
+        # Query 2: Top Rated Books by Age Group (MODIFIED)
+        query2_frame = ttk.LabelFrame(parent, text="Complex Query 2: Top Rated Books by Age Group", 
                                     padding="10")
         query2_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
-        ttk.Label(query2_frame, text="Shows which books are most popular in different generations: "
-                "Gen Z (18-25), Millennials (26-40), Gen X (41-55), Boomers+ (56+).").pack(pady=5)
+        ttk.Label(query2_frame, text="Shows which books are most popular across different generations: "
+                "Gen Z (18-25), Millennials (26-40), Gen X (41-55), Boomers+ (56+). "
+                "Leave book search empty to see all books.").pack(pady=5)
         
+        # Book search parameter (NEW)
+        search_frame = ttk.Frame(query2_frame)
+        search_frame.pack(pady=5)
+        
+        ttk.Label(search_frame, text="Search Book (Title/ISBN):").pack(side=tk.LEFT, padx=5)
+        self.book_search_var = tk.StringVar()
+        ttk.Entry(search_frame, textvariable=self.book_search_var, width=30).pack(side=tk.LEFT, padx=5)
+        
+        # Min ratings parameter
         param_frame2 = ttk.Frame(query2_frame)
         param_frame2.pack(pady=5)
-        ttk.Label(param_frame2, text="Min Ratings:").pack(side=tk.LEFT, padx=5)
+        
+        ttk.Label(param_frame2, text="Min Ratings per Group:").pack(side=tk.LEFT, padx=5)
         self.min_ratings_var = tk.StringVar(value="10")
         ttk.Entry(param_frame2, textvariable=self.min_ratings_var, width=10).pack(side=tk.LEFT, padx=5)
         
         ttk.Button(query2_frame, text="Run Age Group Analysis", 
                 command=self.run_age_group_books).pack(pady=5)
         
-        # Query 3: Most Active Book Clubs
-        query3_frame = ttk.LabelFrame(parent, text="Most Active Book Clubs", 
+        # Query 3: Most Active Book Clubs (unchanged)
+        query3_frame = ttk.LabelFrame(parent, text="Complex Query 3: Most Active Book Clubs", 
                                     padding="10")
         query3_frame.pack(fill=tk.BOTH, expand=True, pady=(0, 10))
         
@@ -89,7 +100,6 @@ class AnalyticsTab:
         
         ttk.Button(query3_frame, text="Run Club Engagement Analysis", 
                 command=self.run_active_clubs).pack(pady=5)
-
 
     # Update the query methods:
 
@@ -129,14 +139,24 @@ class AnalyticsTab:
             messagebox.showerror("Error", "Min ratings must be a number")
             return
         
-        results = analytics_dao.get_top_rated_books_by_age_group(min_ratings)
+        # Get book search term (empty string if not provided)
+        book_search = self.book_search_var.get().strip() or None
+        
+        # Call DAO with book search parameter
+        results = analytics_dao.get_top_rated_books_by_age_group(min_ratings, book_search)
         
         if not results:
-            messagebox.showinfo("Results", "No data available")
+            messagebox.showinfo("Results", "No data available for the specified criteria")
             return
         
+        # Update title based on whether search was used
+        if book_search:
+            title = f"Top Rated Books by Age Group - Search: '{book_search}'"
+        else:
+            title = "Top Rated Books by Age Group - All Books"
+        
         self.show_results_table(
-            "Top Rated Books by Age Group",
+            title,
             ["Age Group", "ISBN", "Title", "Num Ratings", "Avg Rating"],
             results,
             lambda r: (
@@ -147,7 +167,6 @@ class AnalyticsTab:
                 f"{r.get('avg_rating', 0):.2f}"
             )
         )
-
 
     def run_active_clubs(self):
         """Run active clubs query"""

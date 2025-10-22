@@ -1,9 +1,9 @@
 DB_CONFIG = {
     'host': 'localhost',
     'port': 3306,
-    'database': 'db11',
-    'user': 'team11',
-    'password': '0011',
+    'database': 'book_club_db',
+    'user': 'root',
+    'password': 'Fuckyounopassword1!',
     'charset': 'utf8mb4',
     'use_unicode': True
 }

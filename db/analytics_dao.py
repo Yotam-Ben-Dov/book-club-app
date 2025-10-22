@@ -37,7 +37,7 @@ def get_top_publishers_by_rating(min_books=5, min_ratings=50):
     return db.execute_query(query, (min_books, min_ratings))
 
 
-def get_top_rated_books_by_age_group(min_ratings=10):
+def get_top_rated_books_by_age_group(min_ratings=10, book_search=None):
     """
     COMPLEX QUERY 2: Top Rated Books by Age Group
     
@@ -48,9 +48,11 @@ def get_top_rated_books_by_age_group(min_ratings=10):
     - Boomers+ (56+)
     
     Shows which books are most popular in each age group
+    Optional: Filter by book title or ISBN
     
     Uses: CASE statements for age grouping, JOINs (3 tables), 
-          GROUP BY on computed column, aggregations (COUNT, AVG), HAVING
+          GROUP BY on computed column, aggregations (COUNT, AVG), HAVING,
+          optional WHERE clause for book filtering
     """
     query = """
         SELECT 
@@ -67,12 +69,25 @@ def get_top_rated_books_by_age_group(min_ratings=10):
         FROM Users u
         JOIN Ratings r ON u.user_id = r.user_id
         JOIN Books b ON r.ISBN = b.ISBN
+    """
+    
+    params = []
+    
+    # Add WHERE clause if searching for specific book
+    if book_search:
+        query += " WHERE (b.title LIKE %s OR b.ISBN LIKE %s)"
+        search_param = f"%{book_search}%"
+        params.extend([search_param, search_param])
+    
+    query += """
         GROUP BY age_group, b.ISBN, b.title
         HAVING num_ratings >= %s
         ORDER BY age_group, avg_rating DESC, num_ratings DESC
     """
-    return db.execute_query(query, (min_ratings,))
-
+    
+    params.append(min_ratings)
+    
+    return db.execute_query(query, tuple(params))
 
 def get_most_active_book_clubs(min_members=3):
     """
