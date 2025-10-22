@@ -18,10 +18,12 @@ mysql -u root -p < schema.sql
 
 ### Data Loading
 
-Make sure config is in the data_loader folder, and run data_loader py with 
+Make sure config is in the data_loader folder, and run data_loader py with:
 ```bash
 python data_loader.py
 ```
+
+Afterwards return config.py to be in the same folder as main.py
 ### Run Application
 
 ```bash
