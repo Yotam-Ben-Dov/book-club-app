@@ -1,9 +1,9 @@
 DB_CONFIG = {
     'host': 'localhost',
     'port': 3306,
-    'database': 'book_club_db',
-    'user': 'root',
-    'password': 'Fuckyounopassword1!',  # CHANGE THIS
+    'database': 'db11',
+    'user': 'team11',
+    'password': '0011',
     'charset': 'utf8mb4',
     'use_unicode': True
 }
@@ -15,7 +15,7 @@ USERS_FILE = DATA_DIR + 'users.csv'
 RATINGS_FILE = DATA_DIR + 'ratings.csv'
 
 # Filtering criteria
-MIN_YEAR = 1900
+MIN_YEAR = 0
 MAX_YEAR = 2025
 MIN_AGE = 6
 MAX_AGE = 120
